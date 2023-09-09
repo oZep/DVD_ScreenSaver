@@ -78,19 +78,20 @@ class PhysicalEntity {
   
   void boundary() {
     // I want them to check if they're past a boundary
-    if (position.x > width  || position.x <  0.0) {
+    if ((position.x + (r * 0.9)/2 > width  || position.x + (r * 0.9)/2 <  0.0) || (position.x - (r * 0.9)/2 > width  || position.x - (r * 0.9)/2 <  0.0)){
       // change this to cause the velocity to point the other way
       // swapping
       PVector temp = new PVector(-velocity.x, velocity.y, velocity.z);
       velocity.set(temp);
     }
-    if (position.y > height || position.y < 0.0) {
+    if ((position.y + (r * 0.7)/2 > height || position.y + (r * 0.7)/2 < 0.0) || (position.y - (r * 0.7)/2 > height || position.y - (r * 0.7)/2 < 0.0)) {
       // same with horizontal but fix different values
       PVector temp = new PVector(velocity.x, -velocity.y, velocity.z);
       velocity.set(temp);
     }
-    if ((position.y == 0.0 && (position.x ==  0.0 || position.x ==  width)) || (position.x == 0.0 && 
-    (position.y ==  0.0 || position.y ==  height))) {
+    if ((position.y + (r * 0.7)/2 == 0.0 && (position.x + (r * 0.9)/2 ==  0.0 || position.x + (r * 0.9)/2 ==  width)) || (position.x + (r * 0.9)/2 == 0.0 && 
+    (position.y + (r * 0.7)/2 ==  0.0 || position.y + (r * 0.7)/2 ==  height)) || (position.y - (r * 0.7)/2 == 0.0 && (position.x - (r * 0.9)/2 ==  0.0 || position.x - (r * 0.9)/2 ==  width))
+    || (position.x - (r * 0.9)/2 == 0.0 && (position.y - (r * 0.7)/2 ==  0.0 || position.y - (r * 0.7)/2 ==  height))) {
       countCorner += 1;
     }
   }
