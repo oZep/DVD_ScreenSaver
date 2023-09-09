@@ -4,7 +4,7 @@ void setup() {
   size(640, 360);
   exist = new Exist();
   
-  for (int i = 0; i < 50; i++) {
+  for (int i = 0; i < 1; i++) {
     exist.addPeople(new PhysicalEntity(width/2, height/2));
   }
 }
@@ -16,5 +16,5 @@ void draw() {
 
 // Add a new boid into the System
 void mousePressed() {
-  exist.addPeople(new Boid(mouseX,mouseY));
+  exist.addPeople(new PhysicalEntity(mouseX, mouseY));
 }

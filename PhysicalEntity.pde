@@ -5,6 +5,7 @@ class PhysicalEntity {
   float r;
   float maxforce;    // Maximum steering force
   float maxspeed;    // Maximum speed
+  int countCorner;
   
   PhysicalEntity(float x, float y) {
     // basic physics entity
@@ -13,9 +14,10 @@ class PhysicalEntity {
     velocity = new PVector(cos(angle), sin(angle));
     
     position = new PVector(x, y);
-    r = 2.0;
+    r = 100.0;
     maxspeed = 2;
     maxforce = 2.0;
+    countCorner = 0;
   }
   
   void run(ArrayList<PhysicalEntity> entity) {
@@ -31,22 +33,26 @@ class PhysicalEntity {
   }
   
   void render() {
-    // Draw a triangle rotated in the direction of velocity
-    float theta = velocity.heading2D() + radians(90);
     // heading2D() above is now heading() but leaving old syntax until Processing.js catches up
+    fill(0, 0, 255); // Set color to blue
+    noStroke(); // Remove border
     
-    fill(200, 100);
-    stroke(255);
-    pushMatrix();
-    translate(position.x, position.y);
-    rotate(theta);
-    beginShape(TRIANGLES);
-    vertex(0, -r*2);
-    vertex(-r, r*2);
-    vertex(r, r*2);
-    endShape();
-    popMatrix();
-  }
+    // Define dimensions
+    float boxWidth = r * 0.9;
+    float boxHeight = r * 0.7;
+    
+    // Draw the outer box
+    rectMode(CENTER);
+    rect(position.x, position.y, boxWidth, boxHeight);
+    
+    
+    // Draw the "DVD" text
+    fill(255);
+    textSize(r * 0.3);
+    textAlign(CENTER, CENTER);
+    text("DVD", position.x, position.y);
+    text(countCorner, width / 2, 20.0f);
+    }
 
   // Wraparound
   void borders() {
@@ -82,6 +88,10 @@ class PhysicalEntity {
       // same with horizontal but fix different values
       PVector temp = new PVector(velocity.x, -velocity.y, velocity.z);
       velocity.set(temp);
+    }
+    if ((position.y == 0.0 && (position.x ==  0.0 || position.x ==  width)) || (position.x == 0.0 && 
+    (position.y ==  0.0 || position.y ==  height))) {
+      countCorner += 1;
     }
   }
   
