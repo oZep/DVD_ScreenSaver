@@ -1,2 +1,2 @@
-# Simu_1
+# Simulating the Iconic DVD Screen Saver
 Simulation practice 
